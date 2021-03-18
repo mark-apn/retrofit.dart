@@ -24,9 +24,7 @@ Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
 
 TaskQuery _$TaskQueryFromJson(Map<String, dynamic> json) {
   return TaskQuery(
-    (json['statuses'] as List)
-        ?.map((e) => _$enumDecodeNullable(_$StatusEnumMap, e))
-        ?.toList(),
+    (json['statuses'] as List)?.map((e) => _$enumDecodeNullable(_$StatusEnumMap, e))?.toList(),
   );
 }
 
@@ -44,9 +42,7 @@ T _$enumDecode<T>(
         '${enumValues.values.join(', ')}');
   }
 
-  final value = enumValues.entries
-      .singleWhere((e) => e.value == source, orElse: () => null)
-      ?.key;
+  final value = enumValues.entries.singleWhere((e) => e.value == source, orElse: () => null)?.key;
 
   if (value == null && unknownValue == null) {
     throw ArgumentError('`$source` is not one of the supported values: '
@@ -75,18 +71,11 @@ const _$StatusEnumMap = {
 TaskGroup _$TaskGroupFromJson(Map<String, dynamic> json) {
   return TaskGroup(
     date: json['date'] == null ? null : DateTime.parse(json['date'] as String),
-    todos: (json['todos'] as List)
-        ?.map(
-            (e) => e == null ? null : Task.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    completed: (json['completed'] as List)
-        ?.map(
-            (e) => e == null ? null : Task.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    inProgress: (json['inProgress'] as List)
-        ?.map(
-            (e) => e == null ? null : Task.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    todos: (json['todos'] as List)?.map((e) => e == null ? null : Task.fromJson(e as Map<String, dynamic>))?.toList(),
+    completed:
+        (json['completed'] as List)?.map((e) => e == null ? null : Task.fromJson(e as Map<String, dynamic>))?.toList(),
+    inProgress:
+        (json['inProgress'] as List)?.map((e) => e == null ? null : Task.fromJson(e as Map<String, dynamic>))?.toList(),
   );
 }
 
@@ -118,11 +107,11 @@ class _RestClient implements RestClient {
     final _data = <String, dynamic>{};
     final _result = await _dio.request<List<dynamic>>('/tags',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'GET',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
         data: _data);
     final value = _result.data.cast<String>();
     return value;
@@ -135,11 +124,11 @@ class _RestClient implements RestClient {
     final _data = <String, dynamic>{};
     final _result = await _dio.request<List<dynamic>>('/tags',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'GET',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
         data: _data);
     final value = _result.data.cast<String>();
     yield value;
@@ -152,15 +141,13 @@ class _RestClient implements RestClient {
     final _data = <String, dynamic>{};
     final _result = await _dio.request<List<dynamic>>('/tasks',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'GET',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
         data: _data);
-    var value = _result.data
-        .map((dynamic i) => Task.fromJson(i as Map<String, dynamic>))
-        .toList();
+    var value = _result.data.map((dynamic i) => Task.fromJson(i as Map<String, dynamic>)).toList();
     return value;
   }
 
@@ -172,11 +159,11 @@ class _RestClient implements RestClient {
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>('/tasks/$id',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'GET',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
         data: _data);
     final value = Task.fromJson(_result.data);
     return value;
@@ -193,11 +180,11 @@ class _RestClient implements RestClient {
     _data.removeWhere((k, v) => v == null);
     final _result = await _dio.request<Map<String, dynamic>>('/tasks/$id',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'PATCH',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'PATCH',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
         data: _data);
     final value = Task.fromJson(_result.data);
     return value;
@@ -214,11 +201,11 @@ class _RestClient implements RestClient {
     _data.removeWhere((k, v) => v == null);
     final _result = await _dio.request<Map<String, dynamic>>('/tasks/$id',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'PUT',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'PUT',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
         data: _data);
     final value = Task.fromJson(_result.data);
     return value;
@@ -232,11 +219,11 @@ class _RestClient implements RestClient {
     final _data = <String, dynamic>{};
     await _dio.request<void>('/tasks/$id',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'DELETE',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'DELETE',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
         data: _data);
     return null;
   }
@@ -251,11 +238,11 @@ class _RestClient implements RestClient {
     _data.removeWhere((k, v) => v == null);
     final _result = await _dio.request<Map<String, dynamic>>('/tasks',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'POST',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
         data: _data);
     final value = Task.fromJson(_result.data);
     return value;
@@ -268,16 +255,14 @@ class _RestClient implements RestClient {
     final queryParameters = <String, dynamic>{};
     final _data = FormData();
     _data.files.add(MapEntry(
-        'file',
-        MultipartFile.fromFileSync(file.path,
-            filename: file.path.split(Platform.pathSeparator).last)));
+        'file', MultipartFile.fromFileSync(file.path, filename: file.path.split(Platform.pathSeparator).last)));
     await _dio.request<void>('http://httpbin.org/post',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'POST',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
         data: _data);
     return null;
   }
@@ -287,14 +272,12 @@ class _RestClient implements RestClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<List<dynamic>>(
-        'http://httpbin.org/image/jpeg',
+    final _result = await _dio.request<List<dynamic>>('http://httpbin.org/image/jpeg',
         queryParameters: queryParameters,
-        options: RequestOptions(
+        options: Options(
             method: 'GET',
             headers: <String, dynamic>{r'accept': 'image/jpeg'},
             extra: _extra,
-            baseUrl: baseUrl,
             responseType: ResponseType.bytes),
         data: _data);
     final value = _result.data.cast<int>();
@@ -311,12 +294,12 @@ class _RestClient implements RestClient {
     _data.removeWhere((k, v) => v == null);
     final _result = await _dio.request<String>('http://httpbin.org/post',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            contentType: 'application/x-www-form-urlencoded',
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'POST',
+          headers: <String, dynamic>{},
+          extra: _extra,
+          contentType: 'application/x-www-form-urlencoded',
+        ),
         data: _data);
     final value = _result.data;
     return value;
@@ -329,11 +312,11 @@ class _RestClient implements RestClient {
     final _data = <String, dynamic>{};
     final _result = await _dio.request<String>('/',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'HEAD',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'HEAD',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
         data: _data);
     final value = _result.data;
     return value;
@@ -346,11 +329,11 @@ class _RestClient implements RestClient {
     final _data = <String, dynamic>{};
     final _result = await _dio.request('/',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'HEAD',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'HEAD',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
         data: _data);
     final value = _result.data;
     return value;
@@ -363,11 +346,11 @@ class _RestClient implements RestClient {
     final _data = <String, dynamic>{};
     final _result = await _dio.request('/',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'HEAD',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'HEAD',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
         data: _data);
     final value = _result.data;
     final httpResponse = HttpResponse(value, _result);
@@ -381,15 +364,13 @@ class _RestClient implements RestClient {
     final _data = <String, dynamic>{};
     final _result = await _dio.request<List<dynamic>>('/task/group',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'GET',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
         data: _data);
-    var value = _result.data
-        .map((dynamic i) => TaskGroup.fromJson(i as Map<String, dynamic>))
-        .toList();
+    var value = _result.data.map((dynamic i) => TaskGroup.fromJson(i as Map<String, dynamic>)).toList();
     return value;
   }
 
@@ -400,15 +381,13 @@ class _RestClient implements RestClient {
     final _data = <String, dynamic>{};
     final _result = await _dio.request<List<dynamic>>('/task',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'GET',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
         data: _data);
-    var value = _result.data
-        .map((dynamic i) => Task.fromJson(i as Map<String, dynamic>))
-        .toList();
+    var value = _result.data.map((dynamic i) => Task.fromJson(i as Map<String, dynamic>)).toList();
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }
@@ -421,11 +400,11 @@ class _RestClient implements RestClient {
     final _data = <String, dynamic>{};
     final _result = await _dio.request<void>('/tasks/$id',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'DELETE',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'DELETE',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
         data: _data);
     final httpResponse = HttpResponse(null, _result);
     return httpResponse;
@@ -441,17 +420,15 @@ class _RestClient implements RestClient {
     _data.fields.add(MapEntry('task', jsonEncode(task ?? <String, dynamic>{})));
     if (file != null) {
       _data.files.add(MapEntry(
-          'file',
-          MultipartFile.fromFileSync(file.path,
-              filename: file.path.split(Platform.pathSeparator).last)));
+          'file', MultipartFile.fromFileSync(file.path, filename: file.path.split(Platform.pathSeparator).last)));
     }
     final _result = await _dio.request<String>('/post',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'POST',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
         data: _data);
     final value = _result.data;
     return value;
@@ -474,15 +451,14 @@ class _RestClient implements RestClient {
     _data.files.add(MapEntry(
         'file',
         MultipartFile.fromFileSync(file.path,
-            filename: file.path.split(Platform.pathSeparator).last,
-            contentType: MediaType.parse('application/json'))));
+            filename: file.path.split(Platform.pathSeparator).last, contentType: MediaType.parse('application/json'))));
     final _result = await _dio.request<String>('/post',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'POST',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
         data: _data);
     final value = _result.data;
     return value;
@@ -503,17 +479,15 @@ class _RestClient implements RestClient {
         ))));
     if (file != null) {
       _data.files.add(MapEntry(
-          'file',
-          MultipartFile.fromFileSync(file.path,
-              filename: file.path.split(Platform.pathSeparator).last)));
+          'file', MultipartFile.fromFileSync(file.path, filename: file.path.split(Platform.pathSeparator).last)));
     }
     final _result = await _dio.request<String>('/post',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'POST',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
         data: _data);
     final value = _result.data;
     return value;
@@ -538,11 +512,11 @@ class _RestClient implements RestClient {
         )));
     final _result = await _dio.request<String>('/post',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'POST',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
         data: _data);
     final value = _result.data;
     return value;
@@ -557,16 +531,14 @@ class _RestClient implements RestClient {
     final _data = FormData();
     _data.fields.add(MapEntry('tasks', jsonEncode(tasks)));
     _data.files.add(MapEntry(
-        'file',
-        MultipartFile.fromFileSync(file.path,
-            filename: file.path.split(Platform.pathSeparator).last)));
+        'file', MultipartFile.fromFileSync(file.path, filename: file.path.split(Platform.pathSeparator).last)));
     final _result = await _dio.request<String>('/post',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'POST',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
         data: _data);
     final value = _result.data;
     return value;
@@ -597,11 +569,11 @@ class _RestClient implements RestClient {
     }
     final _result = await _dio.request<String>('/post',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'POST',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
         data: _data);
     final value = _result.data;
     return value;
@@ -616,11 +588,11 @@ class _RestClient implements RestClient {
     final _data = <String, dynamic>{};
     final _result = await _dio.request<String>('/demo',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'GET',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
         data: _data);
     final value = _result.data;
     return value;
@@ -634,11 +606,11 @@ class _RestClient implements RestClient {
     final _data = <String, dynamic>{};
     final _result = await _dio.request<String>('/enums',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'GET',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
         data: _data);
     final value = _result.data;
     return value;
@@ -650,21 +622,16 @@ class _RestClient implements RestClient {
     ArgumentError.checkNotNull(scope, 'scope');
     ArgumentError.checkNotNull(type, 'type');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'$apikey': apiKey,
-      r'scope': scope,
-      r'type': type,
-      r'from': from
-    };
+    final queryParameters = <String, dynamic>{r'$apikey': apiKey, r'scope': scope, r'type': type, r'from': from};
     queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.request<String>('/get',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'GET',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
         data: _data);
     final value = _result.data;
     return value;
@@ -678,14 +645,11 @@ class _RestClient implements RestClient {
     final _data = Stream.fromIterable(file.readAsBytesSync().map((i) => [i]));
     final _result = await _dio.request<String>('/postfile',
         queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{
-              r'$Content-Type': 'application/octet-stream',
-              r'Ocp-Apim-Subscription-Key': 'abc'
-            },
-            extra: _extra,
-            baseUrl: baseUrl),
+        options: Options(
+          method: 'POST',
+          headers: <String, dynamic>{r'$Content-Type': 'application/octet-stream', r'Ocp-Apim-Subscription-Key': 'abc'},
+          extra: _extra,
+        ),
         data: _data);
     final value = _result.data;
     return value;
@@ -697,25 +661,27 @@ class _RestClient implements RestClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final newOptions = newRequestOptions(options);
-    newOptions.extra.addAll(_extra);
-    newOptions.headers.addAll(<String, dynamic>{});
+    final newOpts = newOptions(options);
+    newOpts.extra.addAll(_extra);
+    newOpts.headers.addAll(<String, dynamic>{});
     final _result = await _dio.request<String>('',
         queryParameters: queryParameters,
-        options: newOptions.merge(method: 'GET', baseUrl: baseUrl),
+        options: newOpts.copyWith(
+          method: 'GET',
+        ),
         data: _data);
     final value = _result.data;
     return value;
   }
 
-  RequestOptions newRequestOptions(Options options) {
-    if (options is RequestOptions) {
+  Options newOptions(Options options) {
+    if (options is Options) {
       return options;
     }
     if (options == null) {
-      return RequestOptions();
+      return Options();
     }
-    return RequestOptions(
+    return Options(
       method: options.method,
       sendTimeout: options.sendTimeout,
       receiveTimeout: options.receiveTimeout,

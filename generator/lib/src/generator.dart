@@ -357,7 +357,6 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
       extraOptions[_contentType] =
           literal(contentType.peek("mime").stringValue);
     }
-    extraOptions[_baseUrlVar] = refer(_baseUrlVar);
 
     final responseType = _getResponseTypeAnnotation(m);
     if (responseType != null) {
@@ -668,7 +667,7 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
           if (_isBasicType(genericType)){
             mapperVal = """
     (json)=>(json as List<dynamic>)
-            .map<${genericTypeString}>((i) => 
+            .map<${genericTypeString}>((i) =>
                   i as ${genericTypeString}
                 )
             .toList()
@@ -722,7 +721,7 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
       Map<String, Expression> namedArguments,
       List<Code> blocks,
       Map<String, Expression> extraOptions) {
-    final options = refer("RequestOptions").newInstance([], extraOptions);
+    final options = refer("Options").newInstance([], extraOptions);
     final annoOptions = _getAnnotation(m, retrofit.DioOptions);
     if (annoOptions == null) {
       return options;
@@ -988,7 +987,7 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
               ? ""
               : 'contentType: MediaType.parse(${literal(contentType)}),';
           blocks.add(refer(_dataVar).property('files').property("add").call([
-            refer(''' 
+            refer('''
                   MapEntry(
                 '${fieldName}',
                 MultipartFile.fromBytes(${p.displayName},
@@ -1008,7 +1007,7 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
                 : 'contentType: MediaType.parse(${literal(contentType)}),';
             blocks
                 .add(refer(_dataVar).property('files').property("addAll").call([
-              refer(''' 
+              refer('''
                   ${p.displayName}?.map((i) => MapEntry(
                 '${fieldName}',
                 MultipartFile.fromBytes(i,
@@ -1033,7 +1032,7 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
                 : 'contentType: MediaType.parse(${literal(contentType)}),';
             blocks
                 .add(refer(_dataVar).property('files').property("addAll").call([
-              refer(''' 
+              refer('''
                   ${p.displayName}?.map((i) => MapEntry(
                 '${fieldName}',
                 MultipartFile.fromFileSync(i.path,
@@ -1045,7 +1044,7 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
           } else if (_typeChecker(MultipartFile).isExactlyType(innnerType)) {
             blocks
                 .add(refer(_dataVar).property('files').property("addAll").call([
-              refer(''' 
+              refer('''
                   ${p.displayName}?.map((i) => MapEntry(
                 '${fieldName}',
                 i))

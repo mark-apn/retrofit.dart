@@ -28,7 +28,7 @@ dependencies:
   dart_json_mapper:
   reflectable: ^2.2.4
   logger: any
-  dio_http_cache: any
+  # dio_http_cache: any
 
 dev_dependencies:
   flutter_test:
